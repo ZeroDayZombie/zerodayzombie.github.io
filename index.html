@@ -156,6 +156,34 @@
     gap: 12px;
     flex-wrap: wrap;
   }
+  .stat-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .stat-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-text::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--accent);
+  }
+  .stat-text b {
+    color: var(--accent);
+  }
   .btn {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
@@ -475,7 +503,15 @@
 
   function setLang(lang) {
     document.querySelectorAll('[data-es]').forEach(el => {
-      el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es;
+      const value = lang === 'en' ? el.dataset.en : el.dataset.es;
+      if (el.dataset.html === 'true') {
+        el.innerHTML = value;
+      } else {
+        el.textContent = value;
+      }
+    });
+    document.querySelectorAll('[data-href-es]').forEach(el => {
+      el.setAttribute('href', lang === 'en' ? el.dataset.hrefEn : el.dataset.hrefEs);
     });
     document.documentElement.lang = lang;
     document.getElementById('btn-es').classList.toggle('active', lang === 'es');
