@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,6 +71,36 @@
   }
   @media (max-width: 768px) {
     .wrap { padding: 0 24px; }
+  }
+
+  /* Language toggle */
+  .lang-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    display: flex;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .lang-toggle button.active {
+    color: #1A1305;
+    background: var(--accent);
+  }
+  .lang-toggle button:not(.active):hover {
+    color: var(--text);
   }
 
   section {
@@ -169,7 +199,7 @@
   }
   .about p + p { margin-top: 16px; }
 
-  /* Experience timeline */
+  /* Timeline (experience + education) */
   .timeline {
     list-style: none;
     position: relative;
@@ -231,6 +261,35 @@
     color: var(--accent);
   }
 
+  /* Certifications & languages */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+  .info-block h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .name { color: var(--text); }
+  .info-row .meta { color: var(--muted); font-size: 13px; text-align: right; }
+
   /* Contact */
   .contact-list {
     list-style: none;
@@ -278,66 +337,124 @@
 
 <div class="signal"></div>
 
+<div class="lang-toggle">
+  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
 <div class="wrap">
 
   <section class="hero">
-    <div class="eyebrow">Available for opportunities</div>
+    <div class="eyebrow" data-es="Disponible para nuevas oportunidades" data-en="Open to new opportunities">Disponible para nuevas oportunidades</div>
     <h1>Sidney <span>Alonso</span></h1>
-    <p class="tagline">
-      <!-- TODO: replace with your real one-line role/tagline, e.g. "Cybersecurity Consultant helping teams find and fix what attackers would find first." -->
-      Add a one-line tagline here describing what you do.
+    <p class="tagline" data-es="Técnico en ciberseguridad en formación, con experiencia previa en sistemas de seguridad física, delineación técnica y desarrollo de entornos interactivos." data-en="Cybersecurity technician in training, with prior experience in physical security systems, technical drafting, and interactive environment development.">
+      Técnico en ciberseguridad en formación, con experiencia previa en sistemas de seguridad física, delineación técnica y desarrollo de entornos interactivos.
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#" target="_blank" rel="noopener"><!-- TODO: link to your CV -->Download CV</a>
+      <a class="btn btn-primary" href="#" target="_blank" rel="noopener" data-es="Descargar CV" data-en="Download CV"><!-- TODO: link to your CV -->Descargar CV</a>
       <a class="btn btn-secondary" href="https://www.linkedin.com/in/sidney-alonso-ciber" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
   </section>
 
   <section class="about">
-    <div class="eyebrow">About</div>
-    <h2>Background</h2>
-    <p>
-      <!-- TODO: paste your LinkedIn "About" summary here, in your own words -->
-      Write a short paragraph about who you are, what you focus on, and what you're looking for next.
+    <div class="eyebrow" data-es="Acerca de" data-en="About">Acerca de</div>
+    <h2 data-es="Sobre mí" data-en="Background">Sobre mí</h2>
+    <p data-es="Apasionado por el mundo de las tecnologías de la información, con un interés especial por la ciberseguridad. Mi trayectoria combina una base técnica diversa —informática, redes, diseño asistido por ordenador, programación y desarrollo de entornos interactivos— con una curiosidad constante por entender cómo funcionan los sistemas y cómo protegerlos. Actualmente enfocado en auditorías de seguridad, análisis forense y la aplicación de la inteligencia artificial a la ciberseguridad."
+       data-en="Passionate about information technology, with a particular focus on cybersecurity. My background combines a diverse technical foundation — computing, networking, computer-aided design, programming, and interactive environment development — with a constant curiosity about how systems work and how to protect them. Currently focused on security audits, digital forensics, and the application of artificial intelligence to cybersecurity.">
+      Apasionado por el mundo de las tecnologías de la información, con un interés especial por la ciberseguridad. Mi trayectoria combina una base técnica diversa —informática, redes, diseño asistido por ordenador, programación y desarrollo de entornos interactivos— con una curiosidad constante por entender cómo funcionan los sistemas y cómo protegerlos. Actualmente enfocado en auditorías de seguridad, análisis forense y la aplicación de la inteligencia artificial a la ciberseguridad.
     </p>
   </section>
 
   <section class="experience">
-    <div class="eyebrow">Experience</div>
-    <h2>Work history</h2>
+    <div class="eyebrow" data-es="Experiencia" data-en="Experience">Experiencia</div>
+    <h2 data-es="Trayectoria profesional" data-en="Work history">Trayectoria profesional</h2>
     <ul class="timeline">
       <li class="timeline-item">
-        <div class="timeline-role"><!-- TODO -->Job Title — Company</div>
-        <div class="timeline-meta"><!-- TODO -->MONTH YEAR — PRESENT</div>
-        <p class="timeline-desc"><!-- TODO -->One or two lines on what you did and the impact you had.</p>
+        <div class="timeline-role" data-es="Técnico — SEGURIDAD EVS SL" data-en="Technician — SEGURIDAD EVS SL">Técnico — SEGURIDAD EVS SL</div>
+        <div class="timeline-meta">Oct 2023 — <span data-es="actualidad" data-en="present">actualidad</span> · <span data-es="2 años 9 meses" data-en="2 yrs 9 mos">2 años 9 meses</span> · Vitoria-Gasteiz, España</div>
+        <p class="timeline-desc" data-es="Técnico instalador y mantenedor de sistemas de seguridad: sistemas anti-intrusión, CCTV y detección de incendios." data-en="Installation and maintenance technician for security systems: intrusion detection, CCTV, and fire detection systems.">Técnico instalador y mantenedor de sistemas de seguridad: sistemas anti-intrusión, CCTV y detección de incendios.</p>
       </li>
       <li class="timeline-item">
-        <div class="timeline-role"><!-- TODO -->Job Title — Company</div>
-        <div class="timeline-meta"><!-- TODO -->MONTH YEAR — MONTH YEAR</div>
-        <p class="timeline-desc"><!-- TODO -->One or two lines on what you did and the impact you had.</p>
+        <div class="timeline-role" data-es="Delineante técnico — DACO Ingeniería" data-en="Technical Draftsman — DACO Ingeniería">Delineante técnico — DACO Ingeniería</div>
+        <div class="timeline-meta">Jun 2016 — Dic 2017 · <span data-es="1 año 7 meses" data-en="1 yr 7 mos">1 año 7 meses</span> · Vitoria-Gasteiz, España</div>
+        <p class="timeline-desc" data-es="Diseño de productos para fabricación mecánica con CATIA y NX, y elaboración de planos técnicos y documentación." data-en="Design of mechanical manufacturing products using CATIA and NX, and production of technical drawings and documentation.">Diseño de productos para fabricación mecánica con CATIA y NX, y elaboración de planos técnicos y documentación.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="education">
+    <div class="eyebrow" data-es="Educación" data-en="Education">Educación</div>
+    <h2 data-es="Formación académica" data-en="Education">Formación académica</h2>
+    <ul class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-role" data-es="Máster en Ciberseguridad e IA — Evolve" data-en="Master's in Cybersecurity & AI — Evolve">Máster en Ciberseguridad e IA — Evolve</div>
+        <div class="timeline-meta">Oct 2025 — Abr 2026</div>
+        <p class="timeline-desc" data-es="Enfocado en auditorías internas, externas y de redes, investigaciones forenses y elaboración de informes." data-en="Focused on internal, external, and network audits, forensic investigations, and reporting.">Enfocado en auditorías internas, externas y de redes, investigaciones forenses y elaboración de informes.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-role" data-es="Desarrollador de videojuegos y entornos 3D — IMPLIKA" data-en="Video Game & 3D Environment Developer — IMPLIKA">Desarrollador de videojuegos y entornos 3D — IMPLIKA</div>
+        <div class="timeline-meta">Feb 2021 — Feb 2023</div>
+        <p class="timeline-desc" data-es="Game and Interactive Media Design." data-en="Game and Interactive Media Design.">Game and Interactive Media Design.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-role" data-es="Ciclo Formativo de Grado Superior, Delineación — EGIBIDE" data-en="Higher Vocational Training, Drafting — EGIBIDE">Ciclo Formativo de Grado Superior, Delineación — EGIBIDE</div>
+        <div class="timeline-meta">Ene 2016 — Jun 2016</div>
+        <p class="timeline-desc" data-es="Mechanical Drafting and Mechanical Drafting CAD/CADD." data-en="Mechanical Drafting and Mechanical Drafting CAD/CADD.">Mechanical Drafting and Mechanical Drafting CAD/CADD.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-role" data-es="Formación Profesional de Grado Superior, Telecomunicaciones — EGIBIDE" data-en="Higher Vocational Training, Telecommunications — EGIBIDE">Formación Profesional de Grado Superior, Telecomunicaciones — EGIBIDE</div>
+        <div class="timeline-meta">Sep 2012 — Jun 2014</div>
+        <p class="timeline-desc" data-es="Telecommunications Technology / Technician." data-en="Telecommunications Technology / Technician.">Telecommunications Technology / Technician.</p>
       </li>
     </ul>
   </section>
 
   <section class="skills">
-    <div class="eyebrow">Skills</div>
-    <h2>Toolkit</h2>
+    <div class="eyebrow" data-es="Aptitudes" data-en="Skills">Aptitudes</div>
+    <h2 data-es="Áreas de conocimiento" data-en="Areas of expertise">Áreas de conocimiento</h2>
     <div class="skills-grid">
-      <!-- TODO: replace with your real skills -->
-      <span class="skill-tag">Skill One</span>
-      <span class="skill-tag">Skill Two</span>
-      <span class="skill-tag">Skill Three</span>
-      <span class="skill-tag">Skill Four</span>
-      <span class="skill-tag">Skill Five</span>
+      <span class="skill-tag" data-es="Ciberseguridad" data-en="Cybersecurity">Ciberseguridad</span>
+      <span class="skill-tag" data-es="Inteligencia artificial" data-en="Artificial Intelligence">Inteligencia artificial</span>
+      <span class="skill-tag" data-es="Auditoría" data-en="Auditing">Auditoría</span>
+      <span class="skill-tag" data-es="Informática forense" data-en="Digital Forensics">Informática forense</span>
+      <span class="skill-tag" data-es="Respuesta ante incidentes" data-en="Incident Response">Respuesta ante incidentes</span>
+      <span class="skill-tag" data-es="Gestión de redes" data-en="Network Management">Gestión de redes</span>
+      <span class="skill-tag" data-es="Informes y análisis" data-en="Reporting & Analysis">Informes y análisis</span>
+      <span class="skill-tag" data-es="Documentación técnica" data-en="Technical Documentation">Documentación técnica</span>
+    </div>
+  </section>
+
+  <section class="credentials">
+    <div class="eyebrow" data-es="Certificaciones e idiomas" data-en="Certifications & languages">Certificaciones e idiomas</div>
+    <h2 data-es="Credenciales" data-en="Credentials">Credenciales</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <h3 data-es="Licencias y certificaciones" data-en="Licenses & certifications">Licencias y certificaciones</h3>
+        <div class="info-row">
+          <span class="name">Cambridge English C1 Advanced</span>
+          <span class="meta">Cambridge English</span>
+        </div>
+      </div>
+      <div class="info-block">
+        <h3 data-es="Idiomas" data-en="Languages">Idiomas</h3>
+        <div class="info-row">
+          <span class="name" data-es="Español" data-en="Spanish">Español</span>
+          <span class="meta" data-es="Nativo / bilingüe" data-en="Native / bilingual">Nativo / bilingüe</span>
+        </div>
+        <div class="info-row">
+          <span class="name" data-es="Inglés" data-en="English">Inglés</span>
+          <span class="meta" data-es="Competencia profesional completa" data-en="Full professional proficiency">Competencia profesional completa</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="contact">
-    <div class="eyebrow">Contact</div>
-    <h2>Get in touch</h2>
+    <div class="eyebrow" data-es="Contacto" data-en="Contact">Contacto</div>
+    <h2 data-es="Hablemos" data-en="Get in touch">Hablemos</h2>
     <ul class="contact-list">
       <li><span class="tag">LINKEDIN</span><a href="https://www.linkedin.com/in/sidney-alonso-ciber" target="_blank" rel="noopener">linkedin.com/in/sidney-alonso-ciber ↗</a></li>
-      <li><span class="tag">CV</span><a href="#" target="_blank" rel="noopener"><!-- TODO: replace # -->Download CV ↗</a></li>
+      <li><span class="tag">CV</span><a href="#" target="_blank" rel="noopener" data-es="Descargar CV ↗" data-en="Download CV ↗"><!-- TODO: replace # -->Descargar CV ↗</a></li>
       <li><span class="tag">EMAIL</span><a href="mailto:you@example.com"><!-- TODO: replace email -->you@example.com</a></li>
     </ul>
   </section>
@@ -350,6 +467,15 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  function setLang(lang) {
+    document.querySelectorAll('[data-es]').forEach(el => {
+      el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es;
+    });
+    document.documentElement.lang = lang;
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
 </script>
 
 </body>
